@@ -1,18 +1,18 @@
 REGION:=us-east-1
 
 ifneq ($(wildcard .env),)
-        include .env
+	include .env
 endif
 
 .PHONY: build
 build: podman
-        podman build . -t skopeo-aws
+	podman build . -t skopeo-aws
 
 
 .PHONY: run
 run: podman
-        @if [[ -z '$(ACCOUNT)' ]]; then \
-                echo to fix the issue, run the command: ; \
+	@if [[ -z '$(ACCOUNT)' ]]; then \
+		echo to fix the issue, run the command: ; \
                 echo cp default.env .env ; \
                 echo and modify the ACCOUNT field ; \
                 echo ; \
