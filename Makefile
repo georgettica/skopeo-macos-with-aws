@@ -16,7 +16,7 @@ run: podman
 		echo cp default.env .env ; \
 		echo and modify the ACCOUNT field ; \
 		echo If you want your current accout, take it from ; \
-		echo 'aws sts get-caller-identity --output json | jq .Account' \
+		echo 'aws sts get-caller-identity --output json | jq .Account' ; \
 		echo ; \
 		echo ACCOUNT is not set ; \
 		exit 1 ; \
