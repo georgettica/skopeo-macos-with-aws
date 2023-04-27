@@ -20,8 +20,8 @@ FROM quay.io/skopeo/stable:v1.11.1
 RUN \
     : \
     && dnf install -y \
-        jq \
         gron \
+        jq \
     && :
 
 COPY --from=aws_builder /usr/local/aws-cli/ /usr/local/aws-cli/
