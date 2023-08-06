@@ -5,12 +5,11 @@ ifneq ($(wildcard .env),)
 endif
 
 .PHONY: build
-build: podman
+build: podman is_podman_running
 	podman build . -t skopeo-aws
 
-
 .PHONY: run
-run: podman
+run: podman is_podman_running
 	@if [[ -z '$(ACCOUNT)' ]]; then \
 		echo to fix the issue, run the command: ; \
 		echo cp default.env .env ; \
@@ -29,6 +28,10 @@ run: podman
 .PHONY: set_account
 set_account:
 	@read -p "hey" ACCOUNT && echo ACCOUNT=$$ACCOUNT > .env
+
+.PHONY: is_podman_running
+is_podman_running: podman
+        @podman machine info -f '{{.Host.MachineState}}' 2>/dev/null | grep -q Running || { echo "Podman machine is not running but is '$(shell podman machine info -f '{{.Host.MachineState}}')', run 'podman machine start'."; exit 1; }
 
 .PHONY: podman
 podman:
