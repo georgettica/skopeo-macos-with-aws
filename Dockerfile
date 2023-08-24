@@ -16,6 +16,23 @@ RUN : \
     && :
 
 FROM quay.io/skopeo/stable:v1.11.1
+# Attempt 4
+# FROM golang
+#
+# RUN \
+#      : \
+#      && go install github.com/sethkor/s3kor@latest \
+#      && :
+
+# Attempt 3
+# FROM minio/mc
+# Attempt 2
+# FROM rust
+# RUN \
+#      : \
+#      && cargo install \
+#               s3-util \
+#      && :
 
 RUN \
     : \

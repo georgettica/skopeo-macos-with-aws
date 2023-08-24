@@ -22,6 +22,7 @@ run: podman is_podman_running
 	fi
 
 	$(info to connect to the aws ecr registry, run the command:)
+	$(info export DOCKER_BASE=docker://${ACCOUNT}.dkr.ecr.${REGION}.amazonaws.com)
 	$(info  aws ecr get-login-password --region ${REGION} | skopeo login --username AWS --password-stdin ${ACCOUNT}.dkr.ecr.${REGION}.amazonaws.com)
 	podman run --rm -it --entrypoint bash -v /remote/home/.aws:/root/.aws skopeo-aws
 
@@ -31,8 +32,8 @@ set_account:
 
 .PHONY: is_podman_running
 is_podman_running: podman
-        @podman machine info -f '{{.Host.MachineState}}' 2>/dev/null | grep -q Running || { echo "Podman machine is not running but is '$(shell podman machine info -f '{{.Host.MachineState}}')', run 'podman machine start'."; exit 1; }
+	@podman machine info -f '{{.Host.MachineState}}' 2>/dev/null | grep -q Running || { echo "Podman machine is not running but is '$(shell podman machine info -f '{{.Host.MachineState}}')', run 'podman machine start'."; exit 1; }
 
 .PHONY: podman
 podman:
-	@command -v podman >/dev/null 2>&1  || { echo "Podman not found, install podman."; exit 1; }
+	@command -v podman >/dev/null 2>&1 || { echo "Podman not found, install podman."; exit 1; }
