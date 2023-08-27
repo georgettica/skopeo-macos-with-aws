@@ -15,7 +15,7 @@ RUN : \
     && ./aws/install --bin-dir /aws-cli-bin \
     && :
 
-FROM quay.io/skopeo/stable:v1.11.1
+FROM quay.io/skopeo/stable:v1.13.1
 # Attempt 4
 # FROM golang
 #
@@ -37,6 +37,7 @@ FROM quay.io/skopeo/stable:v1.11.1
 RUN \
     : \
     && dnf install -y \
+        bash-completion \
         gron \
         jq \
     && :
